@@ -9,9 +9,21 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    
+    
+    private let baseURL = "https://newsapi.org/v2/top-headlines?country=jp&apiKey="
+    var setUpUrl = "https://newsapi.org/v2/top-headlines?pageSize=20&country=jp&apiKey="
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        if let APIKEY = KeyManager().getValue(key: "apiKey") as? String {
+            
+            var url = baseURL + APIKEY
+            
+        }
+
+
     }
 
 

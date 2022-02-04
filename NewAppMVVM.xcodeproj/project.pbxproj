@@ -13,6 +13,8 @@
 		A49BD3CE27AD0BED00D0F9CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49BD3CC27AD0BED00D0F9CA /* Main.storyboard */; };
 		A49BD3D027AD0BEF00D0F9CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A49BD3CF27AD0BEF00D0F9CA /* Assets.xcassets */; };
 		A49BD3D327AD0BEF00D0F9CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49BD3D127AD0BEF00D0F9CA /* LaunchScreen.storyboard */; };
+		A49BD3DB27AD0CF600D0F9CA /* apiKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = A49BD3DA27AD0CF600D0F9CA /* apiKey.plist */; };
+		A49BD3DD27AD0DAE00D0F9CA /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BD3DC27AD0DAE00D0F9CA /* KeyManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		A49BD3CF27AD0BEF00D0F9CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A49BD3D227AD0BEF00D0F9CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A49BD3D427AD0BEF00D0F9CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A49BD3DA27AD0CF600D0F9CA /* apiKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = apiKey.plist; sourceTree = "<group>"; };
+		A49BD3DC27AD0DAE00D0F9CA /* KeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +63,12 @@
 				A49BD3C627AD0BED00D0F9CA /* AppDelegate.swift */,
 				A49BD3C827AD0BED00D0F9CA /* SceneDelegate.swift */,
 				A49BD3CA27AD0BED00D0F9CA /* ViewController.swift */,
+				A49BD3DC27AD0DAE00D0F9CA /* KeyManager.swift */,
 				A49BD3CC27AD0BED00D0F9CA /* Main.storyboard */,
 				A49BD3CF27AD0BEF00D0F9CA /* Assets.xcassets */,
 				A49BD3D127AD0BEF00D0F9CA /* LaunchScreen.storyboard */,
 				A49BD3D427AD0BEF00D0F9CA /* Info.plist */,
+				A49BD3DA27AD0CF600D0F9CA /* apiKey.plist */,
 			);
 			path = NewAppMVVM;
 			sourceTree = "<group>";
@@ -126,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A49BD3D327AD0BEF00D0F9CA /* LaunchScreen.storyboard in Resources */,
+				A49BD3DB27AD0CF600D0F9CA /* apiKey.plist in Resources */,
 				A49BD3D027AD0BEF00D0F9CA /* Assets.xcassets in Resources */,
 				A49BD3CE27AD0BED00D0F9CA /* Main.storyboard in Resources */,
 			);
@@ -141,6 +148,7 @@
 				A49BD3CB27AD0BED00D0F9CA /* ViewController.swift in Sources */,
 				A49BD3C727AD0BED00D0F9CA /* AppDelegate.swift in Sources */,
 				A49BD3C927AD0BED00D0F9CA /* SceneDelegate.swift in Sources */,
+				A49BD3DD27AD0DAE00D0F9CA /* KeyManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
