@@ -62,8 +62,9 @@
 			children = (
 				A49BD3C627AD0BED00D0F9CA /* AppDelegate.swift */,
 				A49BD3C827AD0BED00D0F9CA /* SceneDelegate.swift */,
-				A49BD3CA27AD0BED00D0F9CA /* ViewController.swift */,
-				A49BD3DC27AD0DAE00D0F9CA /* KeyManager.swift */,
+				A49BD3E327AD109600D0F9CA /* ViewModel */,
+				A49BD3E127AD108A00D0F9CA /* Model */,
+				A49BD3E027AD108200D0F9CA /* View */,
 				A49BD3CC27AD0BED00D0F9CA /* Main.storyboard */,
 				A49BD3CF27AD0BEF00D0F9CA /* Assets.xcassets */,
 				A49BD3D127AD0BEF00D0F9CA /* LaunchScreen.storyboard */,
@@ -71,6 +72,29 @@
 				A49BD3DA27AD0CF600D0F9CA /* apiKey.plist */,
 			);
 			path = NewAppMVVM;
+			sourceTree = "<group>";
+		};
+		A49BD3E027AD108200D0F9CA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A49BD3CA27AD0BED00D0F9CA /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A49BD3E127AD108A00D0F9CA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A49BD3DC27AD0DAE00D0F9CA /* KeyManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A49BD3E327AD109600D0F9CA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
