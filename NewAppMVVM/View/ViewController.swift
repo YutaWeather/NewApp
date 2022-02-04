@@ -7,25 +7,40 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
-    
-    
-    private let baseURL = "https://newsapi.org/v2/top-headlines?country=jp&apiKey="
-    var setUpUrl = "https://newsapi.org/v2/top-headlines?pageSize=20&country=jp&apiKey="
+    var tableView = UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let APIKEY = KeyManager().getValue(key: "apiKey") as? String {
-            
-            var url = baseURL + APIKEY
-            
-        }
-
-
+        configure()
     }
 
+    func configure(){
+        tableView.delegate = self
+        tableView.dataSource = self
+        view.addSubview(tableView)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        tableView.frame = view.frame
+    }
+    
+    //MARK: UITableView
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        
+        return cell!
+    }
 
 }
 
