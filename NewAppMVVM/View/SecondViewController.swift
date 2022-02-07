@@ -13,12 +13,15 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
     var tableView = UITableView()
     var userViewModel:UsersViewModel?
     private var apiManager = APIManager()
+    var users = [User]()
+    private var subscriber:AnyCancellable?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configure()
         setUpViewModel()
+        observerViewModel()
 
     }
 
@@ -38,6 +41,33 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     
+    private func fetchUsers(){
+        
+        userViewModel?.fetchUser()
+        
+    }
+    
+    private func observerViewModel(){
+       subscriber = userViewModel?.userSubject.sink(receiveCompletion: { (resultCompletion) in
+            
+            switch resultCompletion{
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .finished:
+                break
+            }
+            
+        }, receiveValue: { users in
+            DispatchQueue.main.async {
+                
+                self.users = users
+                self.tableView.reloadData()
+            }
+
+        })
+    }
+    
+    
     override func viewWillLayoutSubviews() {
         tableView.frame = view.frame
     }
@@ -49,13 +79,13 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ContentCell.identifier, for: indexPath) as! ContentCell
-//        cell.configure(title:  users[indexPath.row].name)
+        cell.configure(title:  users[indexPath.row].name)
         return cell
     }
 

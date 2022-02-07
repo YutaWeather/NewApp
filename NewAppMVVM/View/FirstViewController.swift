@@ -20,22 +20,23 @@ class FirstViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         super.viewDidLoad()
 
         configure()
-        fetchData()
+//        fetchUsers()
     }
-
+    
     func configure(){
         title = "トップ"
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ContentCell.self, forCellReuseIdentifier: ContentCell.identifier)
         view.addSubview(tableView)
-        
-        
+    
     }
+    
+    
     
 //    func fetchData(){
 //        APIManager.shared.fetchUsers { result in
-//            
+//
 //            switch result{
 //            case .success(let users):
 //                DispatchQueue.main.async {
@@ -44,7 +45,7 @@ class FirstViewController: UIViewController,UITableViewDelegate,UITableViewDataS
 //            case .failure(let error):
 //                print(error.localizedDescription)
 //            }
-//            
+//
 //        }
 //    }
     
