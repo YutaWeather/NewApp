@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 enum Endpoint {
     case userFetch
@@ -30,6 +31,8 @@ enum Endpoint {
 
 class APIManager{
     
+    private var subscribers = Set<AnyCancellable>()
+    
     //TはDynamic(動的)
     func fetchUsers<T:Decodable>(url:URL,complition:@escaping(Result<[T],Error>)->Void){
         
@@ -48,7 +51,7 @@ class APIManager{
             
             complition(.success(resultArray))
             
-        }
+        }.store(in: &subscribers)
 
         
         

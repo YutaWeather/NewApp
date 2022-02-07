@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 class ContentCell: UITableViewCell {
 
     static var identifier = "ContentCell"
     var titleLabel = UILabel()
+    
+    var button = UIButton()
+    let action = PassthroughSubject<String,Never>()
     
     
     override func awakeFromNib() {
@@ -27,12 +31,43 @@ class ContentCell: UITableViewCell {
         titleLabel.text = title
         titleLabel.numberOfLines = 0
         
+      
+    }
+    
+    func configureButtonUI(){
+        
+        layoutButtonUI()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .yellow
+        button.setTitle("ボタン", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
+        
+    }
+    
+    @objc func tapButton(){
+        
+        action.send("選択されました")
+        
+    }
+    
+    func layoutButtonUI(){
+        
+        self.contentView.addSubview(button)
+        let padding:CGFloat = 20
+        NSLayoutConstraint.activate([
+            
+            button.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: padding),
+            button.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: padding),
+            button.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -padding),
+            button.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,constant: -padding)
+        ])
+        
     }
     
     func layoutUI(){
         
         self.addSubview(titleLabel)
-        
         let padding:CGFloat = 20
         
         NSLayoutConstraint.activate([

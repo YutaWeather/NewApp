@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  ThirdViewController.swift
 //  NewAppMVVM
 //
 //  Created by Yuta Fujii on 2022/02/07.
@@ -8,66 +8,47 @@
 import UIKit
 import Combine
 
-class SecondViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     var tableView = UITableView()
-    var userViewModel:UsersViewModel?
-    private var apiManager = APIManager()
-    var users = [User]()
-    private var subscriber:AnyCancellable?
+//    var observers:[AnyCancellable]? = []
+    var observers:[AnyCancellable] = []
+    var model = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configure()
-        setUpViewModel()
-        fetchUsers()
-        observerViewModel()
-
+        fetchData()
     }
-
+    
     func configure(){
         title = "トップ"
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ContentCell.self, forCellReuseIdentifier: ContentCell.identifier)
         view.addSubview(tableView)
-    }
-        
-    private func setUpViewModel(){
-        
-        userViewModel = UsersViewModel(apiManager: apiManager,
-                                       endpoint: .userFetch)
         
     }
     
-    
-    private func fetchUsers(){
+    func fetchData(){
         
-        userViewModel?.fetchUser()
-        
-    }
-    
-    private func observerViewModel(){
-       subscriber = userViewModel?.userSubject.sink(receiveCompletion: { (resultCompletion) in
+        APICaller.shared.fetchData().receive(on: DispatchQueue.main).sink(receiveCompletion: { complition in
             
-            switch resultCompletion{
+            switch complition{
             case .failure(let error):
                 print(error.localizedDescription)
             case .finished:
-                break
+                print("finished")
             }
             
-        }, receiveValue: { users in
-            DispatchQueue.main.async {
-                
-                self.users = users
-                self.tableView.reloadData()
-            }
-
-        })
+        }, receiveValue: { [weak self] value in
+            
+            self?.model = value
+            self?.tableView.reloadData()
+            
+        }).store(in: &observers)
     }
-    
     
     override func viewWillLayoutSubviews() {
         tableView.frame = view.frame
@@ -80,19 +61,26 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return users.count
+        return self.model.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ContentCell.identifier, for: indexPath) as! ContentCell
-        cell.configure(title:  users[indexPath.row].name)
+        cell.configureButtonUI()
+        cell.action.sink { text in
+
+            print(text)
+            cell.button.setTitle(text, for: .normal)
+
+        }.store(in: &observers)
+        
         return cell
     }
-
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-
+    
 }
