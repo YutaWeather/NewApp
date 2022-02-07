@@ -12,6 +12,7 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     var tableView = UITableView()
     var userViewModel:UsersViewModel?
+    private var apiManager = APIManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,8 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
         
     private func setUpViewModel(){
         
-        userViewModel = UsersViewModel()
+        userViewModel = UsersViewModel(apiManager: apiManager,
+                                       endpoint: .userFetch)
         
     }
     

@@ -9,18 +9,20 @@ import Foundation
 
 enum Endpoint {
     case userFetch
-//    case LastMessage
-//    case Messages
-
+    case newsFetch
+    //    case Messages
+    
     var urlString:String{
         switch self {
         case .userFetch:
             return "https://jsonplaceholder.typicode.com/users"
-
-//        case .LastMessage:
-//            return manager.GET("/api/last-message.json", parameters: parameters, success: success, failure: failure)
-//        case .Messages:
-//            return manager.GET("/api/messages.json", parameters: parameters, success: success, failure: failure)
+        case .newsFetch:
+            var newsURLWithApiKey = String()
+            
+            if let APIKEY = KeyManager().getValue(key: "apiKey") as? String {
+                newsURLWithApiKey = "https://newsapi.org/v2/top-headlines?country=jp&apiKey=" + APIKEY
+            }
+            return newsURLWithApiKey
         }
     }
     
