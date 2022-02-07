@@ -9,12 +9,17 @@ import Foundation
 
 final class NewsViewModel {
 
-    var service = Service()
+    //M → View(Controller)
+    //Model内のメソッドを呼ぶ ,ViewControllerへ呼んでもらう用のメソッドを作成
+    
+    //View(Controller) → M
+    // →次これ
+    
     var articles = [Article]()
     
     func fetchData(completed:@escaping([Article]?,String?) -> Void){
     
-        service.fetchNewsArticles { articles, error in
+        Service.shareInstance.fetchNewsArticles { articles, error in
             
             if error != nil{
                 completed(nil, FetchErrors.someError.title)
@@ -31,13 +36,7 @@ final class NewsViewModel {
     }
     
     func titleForRowAtIndexxPath(indexPath:IndexPath) -> String{
-        print(self.articles[indexPath.row].title!)
         return self.articles[indexPath.row].title!
-        
     }
-    
-    
-    
-    
 
 }

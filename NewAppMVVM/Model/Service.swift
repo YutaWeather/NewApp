@@ -44,7 +44,6 @@ class Service{
                 }
                 
                 do{
-
                     self.newsModel = try JSONDecoder().decode(NewsModel.self, from: data!)
                     completed(self.newsModel?.articles, nil)
                     
