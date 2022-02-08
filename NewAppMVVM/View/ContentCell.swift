@@ -8,14 +8,18 @@
 import UIKit
 import Combine
 
+//protocol UserNameCellDelegate{
+//    func showName(for user:User)
+//}
+
 class ContentCell: UITableViewCell {
 
     static var identifier = "ContentCell"
     var titleLabel = UILabel()
-    
+//    var delegate:UserNameCellDelegate?
     var button = UIButton()
     let action = PassthroughSubject<String,Never>()
-    
+    private var user:User?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,6 +37,20 @@ class ContentCell: UITableViewCell {
         
       
     }
+
+    func configure(user:User){
+        
+        layoutUI()
+        self.user = user
+        titleLabel.textColor = .black
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.font = .boldSystemFont(ofSize: 20)
+        titleLabel.text = self.user?.name
+        titleLabel.numberOfLines = 0
+        
+      
+    }
+
     
     func configureButtonUI(){
         
