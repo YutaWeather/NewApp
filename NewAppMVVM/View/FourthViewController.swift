@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import Combine
 
 class FourthViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
    
 
     var tableView = UITableView()
     var users = [User]()
+    
+    var getUserDataToken:AnyCancellable?
+    
+    var tokens = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,22 +36,42 @@ class FourthViewController: UIViewController,UITableViewDelegate,UITableViewData
     
   
     func getData(){
+  
         
-        NetworkingService.getData { [weak self] result in
+        getUserDataToken = NetworkingService.getData().sink { complition in
             
-            switch result{
-            case .success(let users):
-                
-                self?.users = users
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-
+            switch complition{
+            case .finished:
+                print("publisher stopped observed")
+            
             case .failure(let error):
-                print(error)
+                print(error.localizedDescription)
             }
             
+        } receiveValue: { [weak self] users in
+            self?.users = users
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
         }
+
+        
+        
+//        NetworkingService.getData { [weak self] result in
+//
+//            switch result{
+//            case .success(let users):
+//
+//                self?.users = users
+//                DispatchQueue.main.async {
+//                    self?.tableView.reloadData()
+//                }
+//
+//            case .failure(let error):
+//                print(error)
+//            }
+//
+//        }
         
         
     }
@@ -69,18 +94,23 @@ class FourthViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ContentCell.identifier, for: indexPath) as! ContentCell
 //        cell.delegate = self
+            cell.actionPublisher.sink { action in
+            
+            switch action{
+            case .showAlert(let user):
+                self.present(AlertService.showAlert(title: user.name, vc: self, user: user), animated: true, completion:nil)
+                
+            case .otherShowAlert(let user):
+                self.present(AlertService.showAlert(title: user.email, vc: self, user: user), animated: true, completion:nil)
+            }
+            
+            }.store(in: &tokens)
+        
         cell.configure(user: users[indexPath.row])
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let alertVC = AlertService.showAlert(title: "選択されました", vc: self, user: self.users[indexPath.row])
-        self.present(alertVC, animated: true, completion: nil)
-       
-
-    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension

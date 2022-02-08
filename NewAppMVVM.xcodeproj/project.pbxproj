@@ -30,6 +30,7 @@
 		A49BD40327B200C100D0F9CA /* FourthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BD40227B200C100D0F9CA /* FourthViewController.swift */; };
 		A49BD40527B2015E00D0F9CA /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BD40427B2015E00D0F9CA /* NetworkingService.swift */; };
 		A49BD40727B2061A00D0F9CA /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BD40627B2061A00D0F9CA /* AlertService.swift */; };
+		A49BD40927B2461200D0F9CA /* FifthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BD40827B2461200D0F9CA /* FifthViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		A49BD40227B200C100D0F9CA /* FourthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthViewController.swift; sourceTree = "<group>"; };
 		A49BD40427B2015E00D0F9CA /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		A49BD40627B2061A00D0F9CA /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
+		A49BD40827B2461200D0F9CA /* FifthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				A49BD3FC27B0E51300D0F9CA /* SecondViewController.swift */,
 				A49BD3FE27B10BF900D0F9CA /* ThirdViewController.swift */,
 				A49BD40227B200C100D0F9CA /* FourthViewController.swift */,
+				A49BD40827B2461200D0F9CA /* FifthViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A49BD40927B2461200D0F9CA /* FifthViewController.swift in Sources */,
 				A49BD3EB27AD13D000D0F9CA /* NewsModel.swift in Sources */,
 				A49BD3FB27B0E4B000D0F9CA /* UsersViewModel.swift in Sources */,
 				A49BD3F127AE0BD000D0F9CA /* NewsViewModel.swift in Sources */,

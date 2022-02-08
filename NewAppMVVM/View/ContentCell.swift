@@ -20,6 +20,12 @@ class ContentCell: UITableViewCell {
     var button = UIButton()
     let action = PassthroughSubject<String,Never>()
     private var user:User?
+    var showNameButton = UIButton()
+    var showEmailButton = UIButton()
+    
+//    var showAlertPublisher = PassthroughSubject<User,Never>()
+    
+    var actionPublisher = PassthroughSubject<Action,Never>()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,6 +54,18 @@ class ContentCell: UITableViewCell {
         titleLabel.text = self.user?.name
         titleLabel.numberOfLines = 0
         
+        showNameButton.translatesAutoresizingMaskIntoConstraints = false
+        showNameButton.backgroundColor = .yellow
+        showNameButton.setTitle("名前", for: .normal)
+        showNameButton.setTitleColor(.black, for: .normal)
+        showNameButton.addTarget(self, action: #selector(tapShowNameButton), for: .touchUpInside)
+        
+        showEmailButton.translatesAutoresizingMaskIntoConstraints = false
+        showEmailButton.backgroundColor = .blue
+        showEmailButton.setTitle("メール", for: .normal)
+        showEmailButton.setTitleColor(.black, for: .normal)
+        showEmailButton.addTarget(self, action: #selector(tapShowEmailButton), for: .touchUpInside)
+        
       
     }
 
@@ -69,6 +87,19 @@ class ContentCell: UITableViewCell {
         
     }
     
+    
+    @objc func tapShowNameButton(){
+        
+        actionPublisher.send(.showAlert(self.user!))
+        
+    }
+    
+    @objc func tapShowEmailButton(){
+        
+        actionPublisher.send(.otherShowAlert(self.user!))
+        
+    }
+    
     func layoutButtonUI(){
         
         self.contentView.addSubview(button)
@@ -86,6 +117,8 @@ class ContentCell: UITableViewCell {
     func layoutUI(){
         
         self.addSubview(titleLabel)
+        self.addSubview(showNameButton)
+        self.addSubview(showEmailButton)
         let padding:CGFloat = 20
         
         NSLayoutConstraint.activate([
@@ -93,7 +126,21 @@ class ContentCell: UITableViewCell {
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: padding),
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor,constant: padding),
             titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -padding),
-            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -padding)
+//            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -padding)
+            titleLabel.widthAnchor.constraint(equalToConstant: self.frame.width/2),
+            
+            showNameButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            showNameButton.topAnchor.constraint(equalTo: titleLabel.topAnchor),
+//            showNameButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            showNameButton.widthAnchor.constraint(equalToConstant: self.frame.width/4),
+            showNameButton.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            
+            showEmailButton.leadingAnchor.constraint(equalTo: showNameButton.trailingAnchor),
+            showEmailButton.topAnchor.constraint(equalTo: titleLabel.topAnchor),
+//            showNameButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            showEmailButton.widthAnchor.constraint(equalToConstant: self.frame.width/4),
+            showEmailButton.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor)
+            
         ])
         
         
@@ -106,4 +153,15 @@ class ContentCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+}
+
+extension ContentCell{
+    
+    enum Action {
+        
+        case showAlert(User)
+        case otherShowAlert(User)
+    
+    }
+    
 }
